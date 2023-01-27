@@ -1,0 +1,92 @@
+
+   
+                 
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{tmplt.html}">
+<head>
+<meta charset="utf-8">
+
+<title></title>
+
+</head>
+<body>
+    
+<div layout:fragment="pagecontent">  
+      <!-- Liste of Category -->
+	<h1 style="text-align: center; padding-top: 110px;">
+		Gestion Des Commandes</h1>
+	<div class="container mt-5">
+		<div class="card  ">
+			<div class="card-header bg-primary ">
+				<strong style="color: white; font-size: 20px;">
+					Gestion des Commandes</strong>
+			</div>
+			<div class="card-body">
+		<!-- 		<form action="" method="get">
+
+					<div class="mb-3">
+						<lable class="control-label">MotCle:</lable>
+						<input type="text" name="motCle" th:value="${motCle}" class="p-1">
+						<button class="btn btn-success">Chercher</button>
+					</div>
+
+				</form> -->
+					
+
+				<table class="table  " style="position:relative;top:20px;">
+					<tr>
+						<th>ID</th>
+						<th>Quantite</th>
+						<th>Date_Commande</th>
+						<th>Status </th>
+						
+						
+						<th style="position:relative;left:25px;">Action</th>
+						
+					</tr>
+					<tr th:each="commande :${commande}" >
+					   <td th:text="${commande.id}"></td>
+						<td th:text="${commande.quantite}"></td>
+						<td th:text="${commande.commande.dateCommande}"></td>
+						<div th:if="${commande.statut == 'en cours'} or ${commande.statut == 'rejeté'}">	
+						<td ><span class="badge rounded-pill bg-warning text-dark" th:text="${commande.statut}"></span></td>
+						</div>
+					<div th:if="${commande.statut == 'validé'}">	
+						<td ><span class="badge rounded-pill bg-info text-dark" th:text="${commande.statut}"></span></td>
+						</div>
+					
+						
+						<td th:if="${commande.statut == 'en cours'} or ${commande.statut == 'rejeté'}"> <a th:href="@{updateCmd/{id}(id=${commande.id})}" style="padding-left:15px;"><button type="button" class="btn btn-success" style="border-radius:5px;">Validate</button></a>
+							</td>
+							<td th:if="${commande.statut == 'validé'}"> <a th:href="@{updateCmd1/{id}(id=${commande.id})}" style="padding-left:15px;"><button type="button" class="btn btn-danger" style="border-radius:5px;">Rejeté</button></a>
+							</td>
+							
+		<!-- 					<td> <a th:href="@{deleteUser/{id}(id=${user.id})}" style="padding-left:15px;">	<i class="fa fa-trash" aria-hidden="true"></i></a>
+							</td> -->
+						
+					</tr>
+
+
+				</table>
+
+
+
+
+				<ul class="nav nav-pills" style="padding-top:30px;">
+					<li th:each="page,status:${pages}"><a
+						th:class="${status.index==currentPage}?'btn btn-primary':'btn'"
+						th:href="@{CommandeForm(page=${status.index},size=${size})}"
+						th:text="${status.index}"> </a></li>
+
+				</ul>
+
+			</div>
+		</div>
+
+			
+	</div>
+
+   </div>               
+   
+</html>

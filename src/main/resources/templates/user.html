@@ -1,0 +1,95 @@
+
+   
+                 
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{tmplt.html}">
+<head>
+<meta charset="utf-8">
+
+<title></title>
+
+</head>
+<body>
+    
+<div layout:fragment="pagecontent">  
+      <!-- Liste of Category -->
+	<h1 style="text-align: center; padding-top: 110px;">List of
+		Users</h1>
+	<div class="container mt-5">
+		<div class="card  ">
+			<div class="card-header bg-primary ">
+				<strong style="color: white; font-size: 20px;">List Of
+					Users</strong>
+			</div>
+			<div class="card-body">
+		<!-- 		<form action="" method="get">
+
+					<div class="mb-3">
+						<lable class="control-label">MotCle:</lable>
+						<input type="text" name="motCle" th:value="${motCle}" class="p-1">
+						<button class="btn btn-success">Chercher</button>
+					</div>
+
+				</form> -->
+					<form action="" method="get">
+					<div class="input-group">
+						<input type="text" class="form-control"
+							placeholder="Search for User with Email" name="motCle" th:value="${motCle}">
+						<div class="input-group-append">
+							<span class="input-group-text bg-transparent text-primary">
+								<i class="fa fa-search"></i>
+							</span>
+						</div>
+					</div>
+				</form>
+
+				<table class="table  " style="position:relative;top:20px;">
+					<tr>
+						<th>ID</th>
+						<th>First_Name</th>
+						<th>Last_Name</th>
+						<th>Email </th>
+						
+						<th>Roles </th>
+						<th>Action</th>
+						
+					</tr>
+					<tr th:each="user :${listUser}" >
+					   <td th:text="${user.id}"></td>
+						<td th:text="${user.FirstName}"></td>
+						<td th:text="${user.LastName}"></td>
+						<td th:text="${user.email}"></td>
+						<td th:text="${user.roles}"></td>
+					
+						
+						<td> <a th:href="@{DetailUser/{id}(id=${user.id})}" style="padding-left:15px;"><i class="fa fa-eye" aria-hidden="true"></i></a>
+							</td>
+		<!-- 					<td> <a th:href="@{deleteUser/{id}(id=${user.id})}" style="padding-left:15px;">	<i class="fa fa-trash" aria-hidden="true"></i></a>
+							</td> -->
+						
+					</tr>
+
+
+				</table>
+
+
+
+
+				<ul class="nav nav-pills" style="padding-top:30px;">
+					<li th:each="page,status:${pages}"><a
+						th:class="${status.index==currentPage}?'btn btn-primary':'btn'"
+						th:href="@{user(page=${status.index},size=${size},motCle=${motCle} )}"
+						th:text="${status.index}"> </a></li>
+
+				</ul>
+
+			</div>
+		</div>
+
+			
+	</div>
+
+   </div>               
+   
+</html>
